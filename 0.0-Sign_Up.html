@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="description" content="" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/main.css" />
+	<link rel="stylesheet" href="css/media.css" />
+	<link rel="stylesheet" href="icomoon.css" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+</head>
+<body>
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<button class="btn btn-primary" data-toggle="modal" data-target="#modal-1">Open modal win</button>
+
+		</div>
+	</div>
+</div>
+<br>
+
+<div class="modal" id="modal-1">
+	<div class="modal-dialog">
+		<!--<div class="modal-dialog modal-lg"> розмір модального вікнай-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal">
+					<span class="icon-ic_close_black_24px close-modal"></span>
+				</button>
+				<br>
+                <h1 class="title"><strong>Sign up</strong></h1>
+				<p class="modal-text">Enter phone number. We'll text you
+					<br>a verification code that you can enter.</p>
+
+			</div>
+			<div class="modal-body">
+				<div class="styled-select slate">
+                    <div class="select">
+                        <a href="#" class="slct">United states <span class="icon">         </span></a>
+                        <ul class="drop">
+                            <li>Afghanistan</li>
+                            <li>Åland Islands</li>
+                            <li>Albania</li>
+                            <li>Algeria</li>
+                            <li>American Samoa</li>
+                        </ul>
+                        <input type="hidden" id="select" />
+                    </div>
+                </div>
+
+				<input type="text"  class="number" placeholder="" id="phone">
+					<a class="questions" href="#">Arleady a member?
+					   </a>
+			<div class="modal-footer">
+				<button class="btn btn-primary button-bot" type="button">Send code</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!--<script src="https://code.jquery.com/jquery-latest.js"></script>-->
+<!--<script src="maskinput.js"></script>-->
+<script type="text/javascript">
+    // Select
+    $('.slct').click(function(){
+        var dropBlock = $(this).parent().find('.drop');
+        if( dropBlock.is(':hidden') ) {
+            dropBlock.slideDown();
+            $(this).addClass('active');
+            $('.drop').find('li').click(function(){
+                var selectResult = $(this).html();
+                $(this).parent().parent().find('input').val(selectResult);
+                $('.slct').removeClass('active').html(selectResult);
+                dropBlock.slideUp();
+            });
+        } else {
+            $(this).removeClass('active');
+            dropBlock.slideUp();
+        }
+        return false;
+    });
+
+
+function clearVal(val, limit) {
+    var newVal = val.replace(/[^\d]+/g, '');
+if(newVal == ''){
+    return false;
+}else{
+    return newVal.substring(0, limit);
+}
+}
+function getResString(newVal) {
+    var res = '';
+    for(var i = -1; i < newVal.length; i++){
+        if( i == 0){
+            res +='+';
+            res +=  newVal.charAt(i);
+        }else if (i == 4 || i == 7){
+            res +='-';
+            res +=  newVal.charAt(i);
+        }
+        else{
+            res +=  newVal.charAt(i);
+        }
+    }
+    return res;
+}
+
+
+$(function(){
+    $('#phone').keyup(function () {
+        var val = $(this).val(),
+            limit = 11;
+        if ( val == '') return;
+
+        var newVal = clearVal(val, limit);
+        if(!newVal){
+            $(this).val('');
+            return;
+        }else{
+            $(this).val(newVal);
+        }
+        var res = getResString(newVal);
+        $(this).val(res);
+    });
+});
+</script>
+</head>
+</body>
+</html>
